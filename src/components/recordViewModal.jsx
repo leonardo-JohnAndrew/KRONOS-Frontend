@@ -362,6 +362,7 @@ const PurchaseRequestForm = ({
   updated,
   setPurchaseItems,
 }) => {
+  // console.log(request.material);
   const { dateformat } = formatDate();
   const [items, setItems] = useState({
     items: request.material,
@@ -407,7 +408,7 @@ const PurchaseRequestForm = ({
             label="Date Submitted"
             value={dateformat(request.created_at)}
           />
-          <FormField label="Date Needed" value={dateNeeded} />
+          <FormField label="Date Needed" value={request.dateNeeded} />
         </div>
       </div>
       <div className="modal-particulars-section">
@@ -419,8 +420,8 @@ const PurchaseRequestForm = ({
             </tr>
           </thead>
           <tbody>
-            {items && items.length > 0 ? (
-              items.map((item, index) => (
+            {items.items && items.items.length > 0 ? (
+              items.items.map((item, index) => (
                 <tr key={index}>
                   <td>
                     {canEdit ? (
