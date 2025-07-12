@@ -1,0 +1,53 @@
+/* src/components/ArchiveModal.css */
+.archive-modal {
+  text-align: center;
+}
+
+.archive-modal h3 {
+  margin: 15px 10px 15px;
+  /* color: #333; */
+  color: #333;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.archive-modal p {
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 0.95em;
+}
+
+.archive-modal .warning {
+  color: #dc3545; /* Red color for warning */
+  font-size: 0.9em;
+  margin-top: 15px;
+  margin: 15px 15px 20px;
+}
+
+.archive-modal textarea {
+  width: calc(100% - 22px); /* Adjust for padding and border */
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 10px 12px 10px;
+  border-radius: 4px;
+  font-size: 15px;
+  resize: vertical; /* Allow vertical resizing */
+  box-sizing: border-box;
+  min-height: 80px; /* Minimum height for textarea */
+}
+
+.archive-modal textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.archive-button:disabled {
+  /* background-color: #ccc; */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.archive-button:disabled:hover {
+  opacity: 0.7;
+}

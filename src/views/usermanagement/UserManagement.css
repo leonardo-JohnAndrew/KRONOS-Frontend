@@ -1,0 +1,403 @@
+/* UserManagement.css */
+
+/* General Styles */
+.user-management-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  background-color: #f0f2f7;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+.name-holder {
+  color: white;
+}
+.search-container {
+  position: relative;
+  width: 220px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 6px 10px 6px 30px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  background-color: #f9f9f9;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 14px;
+}
+
+.notification-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.bell-icon {
+  color: #4cc9f0;
+  font-size: 18px;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  background-color: #f44336;
+  border-radius: 50%;
+}
+
+/* Content Styles */
+.content {
+  padding: 15px 20px;
+  background-color: #ecf2ff;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #222;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 13px;
+  margin: 4px 0 20px 0;
+}
+
+/* User List Section */
+.user-list-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.all-users {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.user-count {
+  background-color: #e9ecef;
+  color: #666;
+  font-size: 11px;
+  border-radius: 10px;
+  padding: 1px 6px;
+  margin-left: 6px;
+  font-weight: normal;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-button,
+.add-user-button {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  gap: 4px;
+  height: 28px;
+}
+
+.filter-button {
+  border: 1px solid #dde0e6;
+  background-color: white;
+  color: #333;
+}
+
+.filter-icon {
+  font-size: 12px;
+}
+
+.add-user-button {
+  background-color: #4cc9f0;
+  color: white;
+  border: none;
+}
+
+.plus-icon {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* Table Styles */
+.table-container {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px 15px;
+  text-align: left;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+th {
+  background-color: #e0e0e0;
+  color: #333;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+thead tr {
+  height: 36px;
+}
+
+tbody tr {
+  height: 40px;
+}
+
+.checkbox-column {
+  width: 30px;
+  text-align: center;
+}
+
+.checkbox-column input {
+  margin: 0;
+}
+
+.user-id-column {
+  color: #333;
+}
+
+.user-id-cell a {
+  color: #333;
+  text-decoration: none;
+}
+
+.user-id-cell a:hover {
+  text-decoration: underline;
+}
+
+.empty-row {
+  height: 40px;
+}
+
+.empty-message {
+  text-align: center;
+  color: #999;
+}
+
+/* Action Cell */
+.action-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button,
+.delete-buttons {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.edit-icon {
+  color: #4cc9f0;
+  font-size: 14px;
+}
+
+.delete-icon {
+  color: #f44336;
+  font-size: 14px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.user-modal {
+  width: 700px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.modal-header {
+  background-color: #1976d2;
+  color: white;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  margin-right: 15px;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-user-info {
+  flex: 1;
+}
+
+.modal-user-info h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.user-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.user-id-display {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.modal-form {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.name-inputs,
+.department-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.name-inputs input,
+.department-inputs input {
+  flex: 1;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.save-button,
+.cancel-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.save-button {
+  background-color: #4cc9f0;
+  color: white;
+  border: none;
+}
+
+.cancel-button {
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-list-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .action-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .user-modal {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .name-inputs,
+  .department-inputs {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

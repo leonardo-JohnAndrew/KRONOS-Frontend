@@ -1,0 +1,58 @@
+/* src/components/ConfirmationModal.css */
+.confirmation-modal {
+  text-align: center;
+}
+
+.confirmation-modal h3 {
+  margin: 20px 10px 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.confirmation-modal p {
+  margin: 30px 10px 25px;
+  color: #666;
+  font-size: 0.95em;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 20px 20px;
+}
+
+.confirm-button,
+.save-button,
+.archive-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 34px;
+  margin: 15px 0px 0px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover,
+.save-button:hover,
+.archive-button:hover {
+  background-color: #0056b3;
+}
+
+.cancel-button {
+  background-color: #e9e9e9; /* Lighter grey */
+  color: #555;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #dcdcdc;
+}

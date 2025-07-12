@@ -1,0 +1,92 @@
+.form-selection-container {
+    display: flex;
+    margin: 0%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    height: 100vh;
+    width: 250px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-title {
+    text-align: center;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+    gap: 10px; /* Space between icon and text */
+}
+
+.nav-item i {
+    font-size: 18px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.logout {
+    margin-top: auto;
+    color: red;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout i {
+    font-size: 18px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 700px;
+    /* margin-top: 7%; */
+    background-color: #ecf2ff;
+}
+
+.form-card {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+}
+
+.form-title {
+    font-weight: bold;
+}
+
+.form-subtitle {
+    color: #6c757d;
+}
+
+.form-buttons {
+    display: grid;
+    gap: 10px;
+}

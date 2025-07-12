@@ -1,0 +1,41 @@
+.overview {
+  grid-area: overview;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.overview-card {
+  background-color: #3ea8ff;
+  color: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.overview-card:hover {
+  transform: scale(1.02);
+}
+
+.overview-card h4 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.count {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.change {
+  font-size: 14px;
+  margin-top: 4px;
+  opacity: 0.85;
+}
+
+.previous {
+  font-size: 12px;
+  opacity: 0.75;
+}

@@ -1,0 +1,118 @@
+/* VehicleReservation.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8fbff;
+}
+
+.container.d-flex.justify-content-center.align-items-center.vh-100 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120vh;
+  width: 100%;
+}
+
+.vehicle-reservation-card {
+  width: 600px;
+  max-width: 90%; /* Added for better responsiveness */
+  border-radius: 12px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  border: 0px none;
+  text-align: center;
+  padding: 20px;
+  background-color: white; /* Ensure background is white for consistency */
+}
+
+.form-title {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #333; /* Consistent text color */
+}
+
+.form-subtitle {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 10px; /* Added margin for spacing */
+}
+
+.form-recommendation {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px; /* Consistent spacing for form groups */
+  text-align: left; /* Align labels and inputs to the left */
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 14px;
+  display: block; /* Make labels block-level for better spacing */
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.form-group textarea {
+  resize: vertical; /* Allow vertical resizing of textarea */
+  min-height: 80px; /* Minimum height for textarea */
+}
+
+.btn-primary {
+  background-color: #2196f3; /* Consistent blue for submit buttons */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0d8bf2; /* Darker blue on hover */
+}
+
+.text-danger {
+  color: #dc3545; /* Bootstrap red for error messages */
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .vehicle-reservation-card {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .vehicle-reservation-card {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .form-title {
+    font-size: 20px;
+  }
+  .form-subtitle {
+    font-size: 13px;
+  }
+}

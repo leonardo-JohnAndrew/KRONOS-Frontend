@@ -1,0 +1,126 @@
+/* src/components/DataTable.css */
+:root {
+  --primary-color: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-light: #93c5fd;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #6b7280;
+  --border-color: #e5e7eb;
+  --background-light: #f3f7fa;
+  --background-gray: #f9fafb;
+  --white: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 12px rgba(59, 130, 246, 0.4);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+}
+.data-table-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 16px; /* More padding for cells */
+  text-align: left;
+  color: var(--text-secondary);
+  /* Removed border-bottom here, will style rows directly */
+}
+
+.data-table th {
+  background-color: rgb(
+    224,
+    224,
+    224
+  ); /* Very light blueish background for header */
+  font-weight: 600; /* Bolder headers */
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-size: 14px;
+  /* text-transform: uppercase; Uppercase headers */
+  letter-spacing: 0.5px;
+}
+
+/* Rounded corners for first and last header cells */
+.data-table th:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px; /* Not needed due to separate rows */
+}
+
+.data-table th:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px; /* Not needed due to separate rows */
+}
+
+.data-table tbody tr {
+  background-color: #fff;
+  border-radius: 8px; /* Rounded corners for rows */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow for rows */
+  transition: box-shadow 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* More pronounced shadow on hover */
+}
+
+.data-table td {
+  color: var(--text-secondary);
+  font-size: 12px; /* Slightly smaller text for data cells */
+  background-color: #fff; /* Ensure cells have white background even with row spacing */
+  border-top: 1px solid #eee; /* Light border top for visual separation */
+  border-bottom: 1px solid #eee; /* Light border bottom for visual separation */
+}
+
+/* Remove top/bottom borders for the first/last cells of each row to match rounded corners */
+.data-table tbody tr td:first-child {
+  border-left: 1px solid #eee; /* Left border */
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.data-table tbody tr td:last-child {
+  border-right: 1px solid #eee; /* Right border */
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.data-table .actions {
+  display: flex;
+  gap: 8px; /* Smaller gap between icons */
+  justify-content: center; /* Center icons in the action column */
+  padding-right: 20px; /* Align with other cell padding */
+}
+
+.data-table .icon-button {
+  background: none;
+  border: none;
+  font-size: 20px; /* Slightly larger icons */
+  cursor: pointer;
+  padding: 5px; /* Add padding for larger click area */
+  border-radius: 4px; /* Slightly rounded background on hover */
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.data-table .icon-button:hover {
+  background-color: #f0f2f5; /* Light grey background on hover */
+  transform: translateY(-1px); /* Subtle lift on hover */
+}
+
+/* Specific icon colors */
+.data-table .icon-button span[aria-label="archive"] {
+  color: #ff6347; /* Tomato color for archive */
+}
+
+.data-table .icon-button span[aria-label="edit"] {
+  color: #007bff; /* Blue for edit */
+}

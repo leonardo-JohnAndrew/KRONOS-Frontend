@@ -1,0 +1,85 @@
+.request-queue {
+  grid-area: queue;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+/* ===== 7. Status Indicators ===== */
+.status-badges {
+  padding: 0px 0px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+.status-approved {
+  background-color: #fff4e8;
+  color: #ff9d42;
+}
+
+.status-rejected {
+  background-color: #ffebeb;
+  color: #ff6b6b;
+}
+
+.status-completed {
+  background-color: #f0f8ff;
+  color: #3498db;
+}
+
+.status-reject {
+  background-color: #ffebeb;
+  color: #ff6b6b;
+}
+
+.status-pending {
+  background-color: #f0fff4;
+  color: #4ade80;
+}
+
+.status-ongoing {
+  background-color: #fffaea;
+  color: #ffc107;
+}
+
+.request-queue h3 {
+  margin-bottom: 16px;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+.theader {
+  font-weight: bold;
+  background-color: #f9f9f9;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
+  padding: 12px;
+}
+
+.status {
+  background-color: #d6f5e6;
+  color: #2e7d32;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 50px;
+}
+
+.view-link {
+  color: #3ea8ff;
+  text-decoration: none;
+  font-weight: 500;
+}

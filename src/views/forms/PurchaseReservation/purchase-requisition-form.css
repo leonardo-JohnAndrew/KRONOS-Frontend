@@ -1,0 +1,219 @@
+/* purchase-requisition-form.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8fbff;
+}
+
+.form-container {
+  max-width: 550px;
+  margin: 0 auto;
+  border-radius: 12px; /* Consistent with Vehicle Reservation */
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1); /* Consistent with Vehicle Reservation */
+  padding: 20px;
+  background-color: white; /* Consistent with Vehicle Reservation */
+  display: block;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-header h1 {
+  font-size: 22px;
+  font-weight: 500; /* Consistent with Vehicle Reservation */
+  margin-bottom: 5px;
+  color: #333; /* Consistent with Vehicle Reservation */
+}
+
+.form-header p {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500; /* Consistent with Vehicle Reservation */
+  margin: 0;
+}
+
+.form-header .sub-text {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 20px; /* Consistent with Vehicle Reservation recommendation text */
+}
+
+.form-group {
+  margin-bottom: 15px; /* Consistent spacing for form groups */
+  text-align: left; /* Align labels and inputs to the left */
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 14px;
+  display: block; /* Make labels block-level for better spacing */
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.checkbox-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+  text-align: left; /* Align checkboxes to the left */
+}
+
+.checkbox-container-second-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+  text-align: left; /* Align checkboxes to the left */
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: auto; /* Override full width for checkboxes */
+  margin-right: 5px;
+}
+
+.checkbox-item label {
+  font-size: 13px;
+  font-weight: 400; /* Adjust weight if needed, match form-group label if preferred */
+  margin-bottom: 0; /* Remove margin for checkbox labels */
+}
+
+.items-table {
+  margin-bottom: 20px;
+}
+
+.items-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 10px;
+  width: 100%; /* Ensure it takes full width */
+}
+
+.table-header label {
+  font-size: 14px;
+  font-weight: 500; /* Consistent with other labels */
+  color: #333; /* Consistent with Vehicle Reservation */
+}
+
+.add-item-button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.add-item-button:hover {
+  background-color: #0d8bf2;
+}
+
+.item-row {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.item-row input[type="number"],
+.item-row input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  position: static;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0d8bf2;
+}
+
+.form-number {
+  text-align: right;
+  font-size: 12px;
+  color: #2196f3;
+  margin-top: 10px;
+}
+
+.text-danger {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .checkbox-container,
+  .checkbox-container-second-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-group input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-container {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .form-header h1 {
+    font-size: 20px;
+  }
+  .form-header p {
+    font-size: 13px;
+  }
+  .checkbox-container,
+  .checkbox-container-second-row {
+    grid-template-columns: 1fr;
+  }
+  .item-row {
+    grid-template-columns: 1fr;
+  }
+  .table-header {
+    grid-template-columns: 1fr;
+  }
+}

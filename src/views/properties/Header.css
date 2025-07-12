@@ -1,0 +1,49 @@
+/* src/components/Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0; /* More vertical padding */
+  /* Remove border-bottom as the shadow on properties-section will define separation */
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0; /* Lighter border */
+  border-radius: 25px; /* Fully rounded search bar */
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  width: 300px; /* Fixed width for consistency */
+}
+
+.search-bar input {
+  border: none;
+  padding: 10px 15px; /* More padding */
+  outline: none;
+  width: calc(100% - 40px); /* Adjust width for button */
+  font-size: 15px;
+  background-color: transparent; /* Ensure input background is transparent */
+}
+
+.search-bar button {
+  background-color: transparent; /* Transparent button background */
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #888; /* Softer color for the 'F' icon */
+  font-size: 18px; /* Larger 'F' for better visibility */
+}
+
+.notification-icon {
+  font-size: 26px; /* Larger notification icon */
+  color: #007bff;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.notification-icon:hover {
+  transform: scale(1.1);
+}
