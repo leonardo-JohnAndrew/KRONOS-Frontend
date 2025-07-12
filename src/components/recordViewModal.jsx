@@ -649,7 +649,7 @@ const RecordViewModal = ({
             )}
 
           {/* APPROVE / REJECT BUTTON */}
-          {approval && !myRequest && (
+          {approval && !myRequest && request.remark !== "Approved" && (
             <>
               <button
                 className="approve-button"
@@ -657,7 +657,7 @@ const RecordViewModal = ({
                   handleApprovalRequest(request.request_type, request.id, {
                     job: jobItems,
                     purchase: purchaseItem,
-                    vehicle: vehicleItem,
+                    vehicle: vehicleItem ?? {},
                   });
                 }}
               >
@@ -670,6 +670,11 @@ const RecordViewModal = ({
                 Reject
               </button>
             </>
+          )}
+          {request.remark === "Approved" && (
+            <button className="complete-button" onClick={handleComplete}>
+              Complete
+            </button>
           )}
           <button className="modal-close-button" onClick={onClose}>
             Close
