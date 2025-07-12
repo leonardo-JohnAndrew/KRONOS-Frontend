@@ -66,7 +66,7 @@ const VehicleReservationForm = ({
   const [vehiclelist, setVehicleList] = useState([]);
   const { usertoken, userInfo } = useUserContext();
   const [updateData, setUpdateData] = useState({
-    vehicleID: request.gso_service?.vehicleID || "---",
+    vehicleID: request.gso_service?.vehicleID || "",
     driver: request.gso_service?.driver || "---",
   });
   //role permmission
@@ -150,7 +150,11 @@ const VehicleReservationForm = ({
                   onChange={update}
                   required
                 >
-                  <option value="">Select Vehicle</option>
+                  <option value="">
+                    {request.gso_service?.vehicle
+                      ? `${request.gso_service.vehicle.brand} : ${request.gso_service.vehicle.plateNo}`
+                      : "Select Vehicle"}
+                  </option>
                   {vehiclelist.map((vehicle) => (
                     <option key={vehicle.vehicleID} value={vehicle.vehicleID}>
                       {`${vehicle.brand} : ${vehicle.plateNo} max seat: ${vehicle.maxSeat}`}
