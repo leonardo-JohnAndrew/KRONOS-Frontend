@@ -113,7 +113,7 @@ const VehicleReservationForm = ({
           value={formatTime(request.timeDeparture)}
         />
         <FormField
-          label="Time o
+          label="Timeo
           f Arrival: "
           value={formatTime(request.timeArrival)}
         />
@@ -152,7 +152,7 @@ const VehicleReservationForm = ({
                 >
                   <option value="">Select Vehicle</option>
                   {vehiclelist.map((vehicle) => (
-                    <option key={vehicle.vehicleID} value={vehicle.platNo}>
+                    <option key={vehicle.vehicleID} value={vehicle.vehicleID}>
                       {`${vehicle.brand} : ${vehicle.plateNo} max seat: ${vehicle.maxSeat}`}
                     </option>
                   ))}

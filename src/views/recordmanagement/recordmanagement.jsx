@@ -263,27 +263,28 @@ function RecordManagement() {
                               {request.request_type}
                             </td>
                             <td className="table-cell">{request.reqstCODE}</td>
-                            <td className="table-cell">
-                              {request.user.lastname +
-                                " , " +
-                                request.user.firstname}
-                            </td>
+                            {GSO && (
+                              <td className="table-cell">
+                                {request.user.lastname +
+                                  " , " +
+                                  request.user.firstname}
+                              </td>
+                            )}
                             <td className="table-cell">
                               {dateTimeFormat(request.created_at).date}
                             </td>
-                            {GSO && (
-                              <td className="table-cell">
-                                {
-                                  dateTimeFormat(
-                                    request.facility_request
-                                      ?.activityDateStart ??
-                                      request.service_request?.dateNeeded ??
-                                      request.job_request?.dateNeeded ??
-                                      request.purchase_request?.dateNeeded
-                                  ).date
-                                }
-                              </td>
-                            )}
+
+                            <td className="table-cell">
+                              {
+                                dateTimeFormat(
+                                  request.facility_request?.activityDateStart ??
+                                    request.service_request?.dateNeeded ??
+                                    request.job_request?.dateNeeded ??
+                                    request.purchase_request?.dateNeeded
+                                ).date
+                              }
+                            </td>
+
                             <td className="table-cell">
                               {request.dateBump
                                 ? dateTimeFormat(request.dateBump).date

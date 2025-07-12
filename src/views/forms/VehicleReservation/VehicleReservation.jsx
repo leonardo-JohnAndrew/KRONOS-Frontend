@@ -391,22 +391,22 @@ const VehicleReservationForm = () => {
                 <small className="text-danger">{errors.purpose}</small>
               )}
             </div>
-            {!exceptFile && (
-              <div className="form-group">
-                <label>Travel Order</label>
-                <input
-                  type="file"
-                  name="image"
-                  accept="image/*"
-                  className="form-control"
-                  onChange={handleFileChange}
-                  ref={travelRef}
-                />
-                {errors.travelOrder && (
-                  <small className="text-danger">{errors.travelOrder}</small>
-                )}
-              </div>
-            )}
+
+            <div className="form-group">
+              <label>Travel Order</label>
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                className="form-control"
+                onChange={handleFileChange}
+                ref={travelRef}
+              />
+              {errors.travelOrder && (
+                <small className="text-danger">{errors.travelOrder}</small>
+              )}
+            </div>
+
             <button
               type="submit"
               disabled={isSubmitting}

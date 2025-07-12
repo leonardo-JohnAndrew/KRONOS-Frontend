@@ -260,7 +260,7 @@ const UserManagement = () => {
   };
   const handleArchiveUser = (userId, reason) => {
     axios
-      .patch(
+      .delete(
         `/api/manage-user/archive/${userId}`,
         { archive: "Yes", archiveReason: reason },
         {
