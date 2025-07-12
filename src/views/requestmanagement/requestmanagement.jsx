@@ -351,6 +351,7 @@ function RequestManagement() {
           const cleanData = response.data.replace(/<!--.*?-->/g, "").trim();
           const jsonData = JSON.parse(cleanData, "noError");
           setResult(jsonData.message);
+          // console.log(jsonData);
           console.log(updateData);
           alert(jsonData.message);
           closeModal();

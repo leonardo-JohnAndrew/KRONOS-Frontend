@@ -6,6 +6,7 @@ import { useUserContext } from "../../context/usercontextprovider";
 import cleanData from "../../functions/cleandata";
 import RecordViewModal from "../../components/recordViewModal";
 import formatDate from "../../functions/dateformat";
+import { i } from "fonts/defaultFont";
 
 const RequestQueue = () => {
   const [requests, setRequests] = useState([]);
@@ -248,8 +249,10 @@ const RequestQueue = () => {
           updateData = {
             ...formData,
             remark: "Approved",
-            candEdit: "edit",
+            canedit: "edit",
             joblist: items.job,
+            items,
+            remove: items.job.items,
           };
           break;
         case "VR":
@@ -338,6 +341,7 @@ const RequestQueue = () => {
           const cleanData = response.data.replace(/<!--.*?-->/g, "").trim();
           const jsonData = JSON.parse(cleanData, "noError");
           // setResult(jsonData.message);
+          console.log(jsonData);
           console.log(updateData);
           alert(jsonData.message);
           closeModal();

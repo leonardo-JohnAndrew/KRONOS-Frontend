@@ -303,7 +303,15 @@ const NotificationModule = () => {
   const closeNotifications = () => {
     setIsOpen(false);
   };
-  const keywords = ["Completed", "Reject", "Rejected", "Approved", "View"];
+  const keywords = [
+    "Completed",
+    "Reject",
+    "Rejected",
+    "Approved",
+    "View",
+    "Scheduled",
+    "schedule",
+  ];
   const matched = (id) => {
     const notif = notifications.find((n) => n.id === id);
     if (!notif) return;

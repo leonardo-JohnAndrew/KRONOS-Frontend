@@ -112,39 +112,42 @@ const Announcements = () => {
       {filteredEvents.length === 0 ? (
         <p className="no-announcement">No announcements to show.</p>
       ) : (
-        filteredEvents
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date)
-          )
-          .map((event) => (
-            <div
-              key={event.id}
-              className={`announcement-item ${
-                event.isRead ? "read" : "unread"
-              }`}
-            >
-              <div className="announcement-header">
-                <h3 className="announcement-title">{event.title}</h3>
-                <span className="time-info">
-                  {getRelativeTime(event.createdAt)}
-                </span>
-              </div>
-              <div className="announcement-meta">
-                {event.date} at {event.time}
-              </div>
-              <p className="announcement-description">{event.description}</p>
+        <div className="overflow-auto" style={{ maxHeight: "400px" }}>
+          {filteredEvents
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt || b.date) -
+                new Date(a.createdAt || a.date)
+            )
+            .map((event) => (
+              <div
+                key={event.id}
+                className={`announcement-item ${
+                  event.isRead ? "read" : "unread"
+                }`}
+              >
+                <div className="announcement-header">
+                  <h3 className="announcement-title">{event.title}</h3>
+                  <span className="time-info">
+                    {getRelativeTime(event.createdAt)}
+                  </span>
+                </div>
+                <div className="announcement-meta">
+                  {event.date} at {event.time}
+                </div>
+                <p className="announcement-description">{event.description}</p>
 
-              {/* {!["GSO Director", "GSO Officer"].includes(userRole) && (
-                // <button
-                //   onClick={() => toggleRead(event.id)}
-                //   className="read-toggle"
-                // >
-                //   {event.isRead ? "Mark Unread" : "Mark Read"}
-                // </button>
-              )} */}
-            </div>
-          ))
+                {/* {!["GSO Director", "GSO Officer"].includes(userRole) && (
+                  // <button
+                  //   onClick={() => toggleRead(event.id)}
+                  //   className="read-toggle"
+                  // >
+                  //   {event.isRead ? "Mark Unread" : "Mark Read"}
+                  // </button>
+                )} */}
+              </div>
+            ))}
+        </div>
       )}
     </div>
   );

@@ -56,29 +56,28 @@ function Properties() {
 */
   //archived
   const archiveAxios = async (item, reason) => {
-    alert(reason);
-    // var type;
-    // if (activeTab === "facility") {
-    //   type = "facilities";
-    // } else {
-    //   type = "vehicles";
-    // }
-    // await axios
-    //   .delete(
-    //     `/api/${type}/archive/${item.id}`,
-    //     { archiveReason: reason },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${usertoken}`,
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     //alert(cleanData(res, "noError"));
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    var type;
+    if (activeTab === "facility") {
+      type = "facilities";
+    } else {
+      type = "vehicles";
+    }
+    await axios
+      .delete(
+        `/api/${type}/archive/${item.id}`,
+        { archiveReason: reason },
+        {
+          headers: {
+            Authorization: `Bearer ${usertoken}`,
+          },
+        }
+      )
+      .then((res) => {
+        //alert(cleanData(res, "noError"));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   //saveAxios
   const saveAxios = async (item) => {

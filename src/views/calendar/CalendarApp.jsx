@@ -426,7 +426,10 @@ const CalendarApp = () => {
             </div>
           )}
 
-          <div className="announcements-list">
+          <div
+            className="announcements-list overflow-auto"
+            style={{ maxHeight: "60vh" }}
+          >
             {events.length === 0 ? (
               <div className="no-announcements">
                 No announcements yet.{" "}
