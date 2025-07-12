@@ -139,7 +139,7 @@ const VehicleReservationForm = ({
                 value={request.gso_service?.driver || "---"}
               />
             )}
-
+            {/* added */}
             {canEdit ? (
               <div className="form-group">
                 <label className="form-label">Set Vehicle:</label>
