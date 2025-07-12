@@ -445,62 +445,62 @@ const UserManagement = () => {
                       value={formData.userRole}
                     >
                       <option value="Student">Student</option>
+                      <option value="Faculty Adviser">Faculty </option>
                       <option value="Faculty Adviser">Faculty Adviser</option>
                       <option value="Dean/Head">Dean/Head</option>
                       <option value="GSO Officer">GSO Officer</option>
                       <option value="GSO Director">GSO Director</option>
                     </select>
                   </div>
-                  {editingUser.userRole !== "GSO Officer" &&
-                    editingUser.userRole !== "GSO Director" && (
-                      <div className="form-group">
-                        <label>Department & Organization</label>
-                        <div className="d-flex gap-2">
-                          <select
-                            name="dprtID"
-                            className="form-control"
-                            value={formData.dprtID}
-                            onChange={(e) =>
-                              setFormData((prev) => ({
-                                ...prev,
-                                dprtID: parseInt(e.target.value),
-                              }))
-                            }
-                          >
-                            <option>
-                              {isEdit ? formData.dprtname : "Department"}
+                  {
+                    <div className="form-group">
+                      <label>Department & Organization</label>
+                      <div className="d-flex gap-2">
+                        <select
+                          name="dprtID"
+                          className="form-control"
+                          value={formData.dprtID}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              dprtID: parseInt(e.target.value),
+                            }))
+                          }
+                        >
+                          <option>
+                            {isEdit ? formData.dprtname : "Department"}
+                          </option>
+                          {departments.map((dep) => (
+                            <option key={dep.dprtID} value={dep.dprtID}>
+                              {dep.dprtName}
                             </option>
-                            {departments.map((dep) => (
-                              <option key={dep.dprtID} value={dep.dprtID}>
-                                {dep.dprtName}
-                              </option>
-                            ))}
-                          </select>
+                          ))}
+                        </select>
 
-                          <select
-                            name="orgID"
-                            className="form-control"
-                            value={formData.orgID}
-                            onChange={(e) =>
-                              setFormData((prev) => ({
-                                ...prev,
-                                orgID: parseInt(e.target.value),
-                              }))
-                            }
-                            disabled={!organizations.length}
-                          >
-                            <option>
-                              {isEdit ? formData.orgname : "Organization"}
+                        <select
+                          name="orgID"
+                          className="form-control"
+                          value={formData.orgID}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              orgID: parseInt(e.target.value),
+                            }))
+                          }
+                          disabled={!organizations.length}
+                        >
+                          <option>
+                            {isEdit ? formData.orgname : "Organization"}
+                          </option>
+                          {organizations.map((org) => (
+                            <option key={org.orgID} value={org.orgID}>
+                              {org.orgName}
                             </option>
-                            {organizations.map((org) => (
-                              <option key={org.orgID} value={org.orgID}>
-                                {org.orgName}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
+                          ))}
+                        </select>
                       </div>
-                    )}
+                    </div>
+                  }
                 </div>
 
                 {/* Right Column */}

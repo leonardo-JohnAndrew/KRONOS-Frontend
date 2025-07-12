@@ -27,7 +27,6 @@ const months = [
   "Nov",
   "Dec",
 ];
-
 const RequestFrequency = () => {
   const [data, setData] = useState([]);
   const { usertoken, userInfo } = useUserContext();

@@ -58,7 +58,7 @@ const Sidebar = ({ activePage, setActivePage, onLogout }) => {
           id: "job-request",
           label: "Job Request",
           path: "/main/reservation-forms/job-request",
-          restrictedRoles: ["Student", "Regular Faculty"],
+          restrictedRoles: ["Student"],
         },
       ],
     },
@@ -126,12 +126,8 @@ const Sidebar = ({ activePage, setActivePage, onLogout }) => {
         "User Management",
       ],
       Student: ["Dashboard", "Calendar", "Reservation Forms", "Records"],
-      "Regular Faculty": [
-        "Dashboard",
-        "Calendar",
-        "Reservation Forms",
-        "Records",
-      ],
+
+      Faculty: ["Dashboard", "Calendar", "Reservation Forms", "Records"],
       "Officer Assistant": [
         "Dashboard",
         "Calendar",
