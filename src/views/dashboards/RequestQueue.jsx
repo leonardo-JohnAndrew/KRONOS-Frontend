@@ -6,7 +6,6 @@ import { useUserContext } from "../../context/usercontextprovider";
 import cleanData from "../../functions/cleandata";
 import RecordViewModal from "../../components/recordViewModal";
 import formatDate from "../../functions/dateformat";
-import { i } from "fonts/defaultFont";
 
 const RequestQueue = () => {
   const [requests, setRequests] = useState([]);
@@ -54,7 +53,7 @@ const RequestQueue = () => {
         // Sort by created_at and take top 5
         const recentRequests = allRequests
           .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-          .slice(0, 5);
+          .slice(0, 10);
 
         setRequests(recentRequests);
       })
@@ -96,7 +95,7 @@ const RequestQueue = () => {
           // Sort by created_at and take top 5
           const recentRequests = allRequests
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-            .slice(0, 5);
+            .slice(0, 10);
 
           setgsoRequests(recentRequests);
         })
@@ -249,10 +248,8 @@ const RequestQueue = () => {
           updateData = {
             ...formData,
             remark: "Approved",
-            canedit: "edit",
+            candEdit: "edit",
             joblist: items.job,
-            items,
-            remove: items.job.items,
           };
           break;
         case "VR":
@@ -341,7 +338,6 @@ const RequestQueue = () => {
           const cleanData = response.data.replace(/<!--.*?-->/g, "").trim();
           const jsonData = JSON.parse(cleanData, "noError");
           // setResult(jsonData.message);
-          console.log(jsonData);
           console.log(updateData);
           alert(jsonData.message);
           closeModal();
@@ -377,55 +373,60 @@ const RequestQueue = () => {
 
   return (
     <div className="request-queue">
-      <h3>Recent Requests</h3>
-      <div className="table">
-        <div className="theader">
-          <div>Type</div>
-          <div>Reference Number</div>
-          <div>{GSO ? "From" : "DateNeeded"}</div>
-          <div>Status</div>
-          <div>View</div>
-        </div>
-
-        {(GSO ? gsoRequests : requests)?.length > 0 ? (
-          (GSO ? gsoRequests : requests).map((req, index) => (
-            <div className="table-row" key={index}>
-              <div>{req.request_type}</div>
-              <div>{req.reqstCODE}</div>
-              <div>
-                {GSO
-                  ? req.user?.lastname && req.user?.firstname
-                    ? `${req.user.lastname}, ${req.user.firstname}`
-                    : "N/A"
-                  : dateTimeFormat(req.dateNeeded)?.date || "N/A"}
-              </div>
-
-              <div
-                className={`status-badges status-${req.remark.toLowerCase()}`}
-              >
-                {req.remark === "Reject" ? "Rejected" : req.remark}
-              </div>
-              <div>
-                <a className="view-link" onClick={() => openModal(req)}>
-                  View
-                </a>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100px",
-              fontSize: "18px",
-              color: "#555",
-            }}
-          >
-            No Recent Request
+      <h3>{GSO ? "Recent Request" : "Your Request"}</h3>
+      <div
+        className="table-responsive"
+        style={{ maxHeight: "250px", overflowY: "auto" }}
+      >
+        <div className="table">
+          <div className="theader">
+            <div>Type</div>
+            <div>Reference Number</div>
+            <div>{GSO ? "From" : "DateNeeded"}</div>
+            <div>Status</div>
+            <div>View</div>
           </div>
-        )}
+
+          {(GSO ? gsoRequests : requests)?.length > 0 ? (
+            (GSO ? gsoRequests : requests).map((req, index) => (
+              <div className="table-row" key={index}>
+                <div>{req.request_type}</div>
+                <div>{req.reqstCODE}</div>
+                <div>
+                  {GSO
+                    ? req.user?.lastname && req.user?.firstname
+                      ? `${req.user.lastname}, ${req.user.firstname}`
+                      : "N/A"
+                    : dateTimeFormat(req.dateNeeded)?.date || "N/A"}
+                </div>
+
+                <div
+                  className={`status-badges status-${req.remark.toLowerCase()}`}
+                >
+                  {req.remark === "Reject" ? "Rejected" : req.remark}
+                </div>
+                <div>
+                  <a className="view-link" onClick={() => openModal(req)}>
+                    View
+                  </a>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100px",
+                fontSize: "18px",
+                color: "#555",
+              }}
+            >
+              No Recent Request
+            </div>
+          )}
+        </div>
       </div>
 
       <RecordViewModal

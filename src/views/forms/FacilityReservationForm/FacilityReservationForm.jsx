@@ -235,7 +235,7 @@ const FacilityReservationForm = () => {
         activityType: "",
         activity: "",
         activityDateStart: "",
-        activityTimestart: "",
+        activityTimeStart: "",
         activityDateEnd: "",
         activityTimeEnd: "",
         note: "---",
@@ -332,7 +332,7 @@ const FacilityReservationForm = () => {
             <label>Date Start</label>
             <input
               type="date"
-              value={formData.activityDatestart}
+              value={formData.activityDateStart}
               name="activityDateStart"
               onChange={handleChange}
               ref={dateStartRef}

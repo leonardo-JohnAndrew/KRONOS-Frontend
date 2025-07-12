@@ -308,6 +308,7 @@ const NotificationModule = () => {
     "Reject",
     "Rejected",
     "Approved",
+    "viewed",
     "View",
     "Scheduled",
     "schedule",

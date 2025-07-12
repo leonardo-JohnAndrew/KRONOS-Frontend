@@ -37,6 +37,7 @@ function RecordManagement() {
   const [requests, setRequests] = useState({});
   const [gsoRequests, setgsoRequests] = useState({});
   const [selectedType, setSelectedType] = useState("All"); // Type filter state
+  const [selectedStatus, setSelectedStatus] = useState("All"); // Status filter state
   const [showRejectionModal, setShowRejectionModal] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +65,10 @@ function RecordManagement() {
   if (GSO) {
     typeOptions = ["All", "OnGoing", "Approved", "Completed", "Rejected"];
   }
+
+  // Status options for dropdown filter
+  const statusOptions = ["All", "Vehicle", "Facility", "Job", "Purchase"];
+
   //fetch record for gso
 
   const fetchrequests = useCallback(() => {
@@ -119,55 +124,6 @@ function RecordManagement() {
     ...(requests.job || []),
     ...(requests.purchase || []),
   ];
-
-  const filteredRequests = allRequests.filter((request) => {
-    const matchesType =
-      selectedType === "All" || request.remark === selectedType;
-    const matchesSearch =
-      request.reqstCODE.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      request.userid.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return matchesType && matchesSearch;
-  });
-  useEffect(() => {
-    fetchrequests();
-    // console.log(requests);
-  }, [fetchrequests, usertoken]);
-  // Filter requests based on selected type and search query
-
-  // Handle viewing a request
-  const handleViewRequest = (request) => {
-    setSelectedRequest(request);
-    setIsModal(true);
-  };
-
-  // Close modal
-  const closeModal = () => {
-    setIsModal(false);
-    setSelectedRequest(null);
-  };
-
-  // Reset to page 1 whenever filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedType]);
-
-  // Pagination Logic
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredRequests.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
-  const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
-  // Handle changing pages
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber > 0 && pageNumber <= totalPages) {
-      setCurrentPage(pageNumber);
-    }
-  };
-  // Handle creating a new request
-
   // Helper function to get type prefix
   const getTypePrefix = (type) => {
     switch (type) {
@@ -201,18 +157,93 @@ function RecordManagement() {
         return "All";
     }
   };
+  const filteredRequests = allRequests.filter((request) => {
+    const matchesType =
+      selectedType === "All" ||
+      request.remark.toLowerCase() === selectedType.toLowerCase();
+
+    const matchesStatus =
+      selectedStatus === "All" ||
+      getTypePrefix(request.request_type) === selectedStatus;
+
+    const matchesSearch =
+      (request.reqstCODE &&
+        request.reqstCODE.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (request.userid &&
+        request.userid.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    return matchesType && matchesStatus && matchesSearch;
+  });
+
+  useEffect(() => {
+    fetchrequests();
+    // console.log(requests);
+  }, [fetchrequests, usertoken]);
+  // Filter requests based on selected type and search query
+
+  // Handle viewing a request
+  const handleViewRequest = (request) => {
+    setSelectedRequest(request);
+    setIsModal(true);
+  };
+
+  // Close modal
+  const closeModal = () => {
+    setIsModal(false);
+    setSelectedRequest(null);
+  };
+
+  // Reset to page 1 whenever filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedType, selectedStatus]);
+
+  // Pagination Logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredRequests.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(filteredRequests.length / itemsPerPage);
+  // Handle changing pages
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+  // Handle creating a new request
 
   return (
     <div className="app-container">
       <div className="request-management-container">
         {/* Header */}
-
         <div className="title-container">
-          <h1 className="title">Record Management</h1>
-          <p className="subtitle">Statuses of request are in this module.</p>
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <h1 className="title">Record Management</h1>
+              <p className="subtitle">
+                Statuses of request are in this module.
+              </p>
+            </div>
+            {/* Search Bar */}
+            <div className="search-container" style={{ width: "300px" }}>
+              <div className="input-group">
+                <span className="input-group-text bg-light border-end-0">
+                  <Search size={18} className="text-muted" />
+                </span>
+                <input
+                  type="text"
+                  className="form-control border-start-0"
+                  placeholder="Search by Reference No. or User ID..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* <hr className="divider" /> */}
         <hr />
         {/* {JSON.stringify(requests)} */}
         {/* Content */}
@@ -236,6 +267,32 @@ function RecordManagement() {
                       {type}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* Status filter dropdown */}
+              <div className="mb-3">
+                <div className="row">
+                  <div className="col-md-3">
+                    <label
+                      htmlFor="statusFilter"
+                      className="form-label fw-semibold"
+                    >
+                      Filter by Request Type:
+                    </label>
+                    <select
+                      id="statusFilter"
+                      className="form-select"
+                      value={selectedStatus}
+                      onChange={(e) => setSelectedStatus(e.target.value)}
+                    >
+                      {statusOptions.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
 

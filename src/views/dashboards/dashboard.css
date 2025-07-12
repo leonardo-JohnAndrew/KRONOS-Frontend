@@ -10,7 +10,7 @@ body {
   grid-template-areas:
     "greet greet"
     "queue queue"
-    "announce announce "
+    "announce announce"
     "overview right"
     "frequency right"
     "header header";

@@ -14,6 +14,7 @@ import {
   ChevronRight,
   X,
   AArrowDown,
+  ChevronDown,
 } from "lucide-react";
 import { actions, initials, reducer } from "../../functions/formrequest";
 import {
@@ -46,6 +47,7 @@ function RequestManagement() {
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showRequests, setShowRequests] = useState(true);
   const [selectedType, setSelectedType] = useState("All"); // Type filter state
+  const [selectedStatus, setSelectedStatus] = useState("All"); // Status filter state
   const [showRejectionModal, setShowRejectionModal] = useState(false);
   const [rejectionReason, setRejectionReason] = useState("");
   const [isRead, setRead] = useState(true);
@@ -55,6 +57,9 @@ function RequestManagement() {
   const [itemsPerPage] = useState(5);
   // Type options for filter bar
   const [typeOptions, setTypeOptions] = useState([]);
+  // Status options for filter dropdown
+  const [statusOptions, setStatusOptions] = useState([]);
+
   // alert(userInfo.userRole);
   useEffect(() => {
     if (userInfo.userRole === "Faculty Adviser") {
@@ -70,6 +75,7 @@ function RequestManagement() {
       setGSO(true);
     }
   }, []);
+
   //call all records
 
   //facility_request
@@ -117,12 +123,28 @@ function RequestManagement() {
     Promise.all(requests)
       .then(([facility, service, job, purchase]) => {
         // console.log (facility, service, job, purchase);
-        setRequests({
+        const allRequestsData = {
           facility: cleanData(facility, "noError"),
           service: cleanData(service, "noError"),
           job: isAuthorized ? cleanData(job, "noError") : [],
           purchase: isAuthorized ? cleanData(purchase, "noError") : [],
-        });
+        };
+
+        setRequests(allRequestsData);
+
+        // Extract unique status values for the status filter
+        const allRequestsList = [
+          ...allRequestsData.facility,
+          ...allRequestsData.service,
+          ...allRequestsData.job,
+          ...allRequestsData.purchase,
+        ];
+
+        const uniqueStatuses = [
+          ...new Set(allRequestsList.map((req) => req.remark)),
+        ];
+        setStatusOptions(["All", ...uniqueStatuses]);
+
         //console.log(requests);
       })
       .catch((err) => {
@@ -134,13 +156,15 @@ function RequestManagement() {
     fetchrequests();
     // console.log(requests);
   }, [fetchrequests, typeOptions]);
-  // Filter requests based on selected type and search query
+
+  // Filter requests based on selected type, status, and search query
   const allRequests = [
     ...(requests.facility || []),
     ...(requests.service || []),
     ...(requests.job || []),
     ...(requests.purchase || []),
   ];
+
   const sorted = allRequests.sort((a, b) => {
     const aHasBump = !!a.dateBump;
     const bHasBump = !!b.dateBump;
@@ -163,12 +187,15 @@ function RequestManagement() {
   const filteredRequests = allRequests.filter((request) => {
     const matchesType =
       selectedType === "All" || request.request_type === selectedType;
+    const matchesStatus =
+      selectedStatus === "All" || request.remark === selectedStatus;
     const matchesSearch =
       request.reqstCODE.toLowerCase().includes(searchQuery.toLowerCase()) ||
       request.userid.toLowerCase().includes(searchQuery.toLowerCase());
 
-    return matchesType && matchesSearch;
+    return matchesType && matchesStatus && matchesSearch;
   });
+
   // Handle viewing a request
   const handleViewRequest = (request) => {
     setSelectedRequest(request);
@@ -351,7 +378,6 @@ function RequestManagement() {
           const cleanData = response.data.replace(/<!--.*?-->/g, "").trim();
           const jsonData = JSON.parse(cleanData, "noError");
           setResult(jsonData.message);
-          // console.log(jsonData);
           console.log(updateData);
           alert(jsonData.message);
           closeModal();
@@ -603,7 +629,7 @@ function RequestManagement() {
   };
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedType]);
+  }, [selectedType, selectedStatus, searchQuery]);
 
   // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -624,23 +650,54 @@ function RequestManagement() {
     <div className="app-container">
       <div className="request-management-container">
         {/* Header */}
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className="title-container">
+            <h1 className="title">
+              {isRead ? "Recommending Approval" : "Request Management"}
+            </h1>
+            <p className="subtitle">Statuses of request are in this module.</p>
+          </div>
 
-        <div className="title-container">
-          <h1 className="title">
-            {isRead ? "Recommending Approval" : "Request Management"}
-          </h1>
-          <p className="subtitle">Statuses of request are in this module.</p>
+          {/* Search Bar */}
+          <div className="search-container" style={{ minWidth: "300px" }}>
+            <div className="input-group">
+              <span className="input-group-text bg-light border-end-0">
+                <Search size={16} className="text-muted" />
+              </span>
+              <input
+                type="text"
+                className="form-control border-start-0"
+                placeholder="Search by reference number or user..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  boxShadow: "none",
+                  borderColor: "#dee2e6",
+                }}
+              />
+              {searchQuery && (
+                <button
+                  className="btn btn-outline-secondary border-start-0"
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  style={{ borderColor: "#dee2e6" }}
+                >
+                  <X size={16} />
+                </button>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* <hr className="divider" /> */}
         <hr />
-        {/* {JSON.stringify(requests)} */}
+
         {/* Content */}
         <div className="content-container">
           {showRequests ? (
             <>
               {/* Type filter tabs */}
-              <div className="tabs-container">
+              <div className="tabs-container mb-3">
                 <div className="tabs">
                   {typeOptions.map((type, index) => (
                     <button
@@ -655,6 +712,41 @@ function RequestManagement() {
                       {type}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* Status filter dropdown */}
+              <div className="row mb-3">
+                <div className="col-md-3">
+                  <label className="form-label small text-muted mb-1">
+                    Filter by Status
+                  </label>
+                  <div className="dropdown">
+                    <select
+                      className="form-select"
+                      value={selectedStatus}
+                      onChange={(e) => setSelectedStatus(e.target.value)}
+                      style={{
+                        backgroundColor: "#f8f9fa",
+                        borderColor: "#dee2e6",
+                        fontSize: "0.875rem",
+                      }}
+                    >
+                      {statusOptions.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="col-md-9">
+                  <div className="d-flex justify-content-end align-items-end h-100">
+                    <small className="text-muted">
+                      Showing {filteredRequests.length} of {allRequests.length}{" "}
+                      requests
+                    </small>
+                  </div>
                 </div>
               </div>
 
@@ -794,18 +886,6 @@ function RequestManagement() {
               </div>
             </div>
           )}
-
-          {/* Floating Action Button */}
-          {/* <div className="fab-container">
-            <button
-              className="fab"
-              onClick={() => {
-                nav("/main/content/reservation-forms");
-              }}
-            >
-              <Edit2 size={20} className="fab-icon" />
-            </button>
-          </div> */}
         </div>
       </div>
 
@@ -840,6 +920,7 @@ function RequestManagement() {
           </div>
         </div>
       )}
+
       <RecordViewModal
         isOpen={isModal}
         onClose={closeModal}
