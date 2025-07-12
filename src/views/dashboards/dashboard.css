@@ -26,6 +26,11 @@ body {
 .greetings {
   grid-area: greet;
   grid-column: 1/ -1;
+
+  h3,
+  h6 {
+    display: inline;
+  }
 }
 .announce {
   grid-area: announce;

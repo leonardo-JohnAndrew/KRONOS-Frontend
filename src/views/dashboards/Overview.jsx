@@ -67,8 +67,8 @@ const Overview = () => {
         <div className="overview-card" key={index}>
           <h4>{item.title}</h4>
           <p className="count">{item.count}</p>
-          <p className="change">{item.change}</p>
-          <p className="previous">Previous month {item.previous}</p>
+          {/* <p className="change">{item.change}</p>
+          <p className="previous">Previous month {item.previous}</p> */}
         </div>
       ))}
     </div>
