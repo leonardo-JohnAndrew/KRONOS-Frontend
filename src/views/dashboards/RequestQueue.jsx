@@ -20,7 +20,9 @@ const RequestQueue = () => {
   const [gsoRequests, setgsoRequests] = useState([]);
 
   const only =
-    userInfo.userRole === "Faculty Adviser" || userInfo.userRole === "Dean/Hed";
+    userInfo.userRole === "Faculty Adviser" ||
+    userInfo.userRole === "Dean/Hed" ||
+    userInfo.userRole === "Faculty";
   userInfo.userRole === "GSO Officer" || userInfo.userRole === "GSO Director";
   const GSO =
     userInfo.userRole === "GSO Officer" || userInfo.userRole === "GSO Director";

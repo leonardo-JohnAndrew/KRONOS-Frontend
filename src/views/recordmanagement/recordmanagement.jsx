@@ -46,7 +46,7 @@ function RecordManagement() {
     userInfo.userRole === "GSO Officer" ||
     userInfo.userRole === "GSO Director" ||
     userInfo.userRole === "Faculty Adviser" ||
-    // userInfo.userRole === "Regular Faculty" ||
+    userInfo.userRole === "Faculty" ||
     userInfo.userRole === "Dean/Head";
 
   const GSO =
