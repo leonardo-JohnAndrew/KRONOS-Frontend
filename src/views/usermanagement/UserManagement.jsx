@@ -260,15 +260,15 @@ const UserManagement = () => {
   };
   const handleArchiveUser = (userId, reason) => {
     axios
-      .delete(
-        `/api/manage-user/archive/${userId}`,
-        { archive: "Yes", archiveReason: reason },
-        {
-          headers: {
-            Authorization: `Bearer ${usertoken}`,
-          },
-        }
-      )
+      .delete(`/api/manage-user/archive/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${usertoken}`,
+        },
+        data: {
+          archive: "Yes",
+          archiveReason: reason,
+        },
+      })
       .then(() => {
         fetchUsers();
       })
