@@ -386,7 +386,7 @@ const CalendarApp = () => {
       {showAnnouncements && (
         <div className="announcements-container">
           <div className="announcements-header">
-            <h2 className="announcements-title">Event Announcements</h2>
+            <h2 className="announcements-title">Announcements</h2>
           </div>
 
           <div className="navigation-bar">
@@ -480,7 +480,10 @@ const CalendarApp = () => {
                       </div>
                     </div>
                     <div className="announcement-meta">
-                      {event.date} at {event.time}
+                      {event.date}
+                      {event.time &&
+                        event.time.toLowerCase() !== "none" &&
+                        ` at ${event.time}`}
                       <span className="created-by">
                         • Created by {event.createdBy}
                       </span>

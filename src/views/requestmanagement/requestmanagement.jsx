@@ -271,9 +271,30 @@ function RequestManagement() {
   };
 
   // Handle approving a request
+  // Handle approving a request
   const handleApprovalRequest = async (type, id, items = {}) => {
     //console.log(items);
     const userrole = role(userInfo.userRole);
+    var request_type;
+    switch (selectedRequest.request_type) {
+      case "FR":
+        request_type = "facility-request";
+        break;
+      case "VR":
+        request_type = "service-request";
+
+        break;
+      case "JR":
+        request_type = "job-request";
+
+        break;
+      case "PR":
+        request_type = "purchase-request";
+
+        break;
+      default:
+        break;
+    }
     var updateData = {
       ...formData,
       remark: "Approved",
@@ -304,6 +325,12 @@ function RequestManagement() {
           };
           break;
         case "VR":
+          if (!items.vehicle.driver || !items.vehicle.vehicleID) {
+            alert(
+              "Driver and Vehicle are required before approving this request."
+            );
+            return; //
+          }
           updateData = {
             ...formData,
             remark: "Approved",
@@ -316,68 +343,79 @@ function RequestManagement() {
     } else {
       // alert("not Authorized");
     }
+    var approval;
     if (selectedRequest) {
       // if (isAuthorized) {
       //     const date = "";
       // }
+      if (userrole === "director") {
+        approval = axios.post(
+          `/api/${userrole}/${request_type}/${selectedRequest.id}/${selectedRequest.reqstCODE}/approval`,
+          updateData,
+          {
+            headers: {
+              Authorization: `Bearer ${usertoken}`,
+            },
+          }
+        );
+      } else {
+        //axios
+        switch (type) {
+          case "FR":
+            approval = axios.post(
+              `/api/${userrole}/facility-request/${id}/approval`,
+              updateData,
+              {
+                headers: {
+                  Authorization: `Bearer ${usertoken}`,
+                },
+              }
+            );
+            break;
+          case "VR":
+            approval = axios.post(
+              `/api/${userrole}/service-request/${id}/approval`,
+              updateData,
+              {
+                headers: {
+                  Authorization: `Bearer ${usertoken}`,
+                },
+              }
+            );
+            break;
+          case "PR":
+            approval = axios.post(
+              `/api/${userrole}/purchase-request/${id}/approval`,
+              updateData,
+              {
+                headers: {
+                  Authorization: `Bearer ${usertoken}`,
+                },
+              }
+            );
+            break;
+          case "JR":
+            approval = axios.post(
+              `/api/${userrole}/job-request/${id}/approval`,
+              updateData,
+              {
+                headers: {
+                  Authorization: `Bearer ${usertoken}`,
+                },
+              }
+            );
+            break;
 
-      var approval;
-      //axios
-      switch (type) {
-        case "FR":
-          approval = axios.post(
-            `/api/${userrole}/facility-request/${id}/approval`,
-            updateData,
-            {
-              headers: {
-                Authorization: `Bearer ${usertoken}`,
-              },
-            }
-          );
-          break;
-        case "VR":
-          approval = axios.post(
-            `/api/${userrole}/service-request/${id}/approval`,
-            updateData,
-            {
-              headers: {
-                Authorization: `Bearer ${usertoken}`,
-              },
-            }
-          );
-          break;
-        case "PR":
-          approval = axios.post(
-            `/api/${userrole}/purchase-request/${id}/approval`,
-            updateData,
-            {
-              headers: {
-                Authorization: `Bearer ${usertoken}`,
-              },
-            }
-          );
-          break;
-        case "JR":
-          approval = axios.post(
-            `/api/${userrole}/job-request/${id}/approval`,
-            updateData,
-            {
-              headers: {
-                Authorization: `Bearer ${usertoken}`,
-              },
-            }
-          );
-          break;
-
-        default:
-          break;
+          default:
+            break;
+        }
       }
-
       approval
         .then((response) => {
           const cleanData = response.data.replace(/<!--.*?-->/g, "").trim();
           const jsonData = JSON.parse(cleanData, "noError");
           setResult(jsonData.message);
+          console.log(jsonData);
           console.log(updateData);
           alert(jsonData.message);
           closeModal();
@@ -488,6 +526,8 @@ function RequestManagement() {
 
     setShowRejectionModal(false);
     setRejectionReason("");
+    setModal(false);
+
     setSelectedRequest("");
   };
 

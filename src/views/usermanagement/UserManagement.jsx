@@ -442,10 +442,11 @@ const UserManagement = () => {
                     <select
                       name="userRole"
                       className="form-control"
+                      onChange={handleFormChange}
                       value={formData.userRole}
                     >
                       <option value="Student">Student</option>
-                      <option value="Faculty Adviser">Faculty </option>
+                      <option value="Faculty">Faculty </option>
                       <option value="Faculty Adviser">Faculty Adviser</option>
                       <option value="Dean/Head">Dean/Head</option>
                       <option value="GSO Officer">GSO Officer</option>

@@ -107,7 +107,7 @@ const Announcements = () => {
 
   return (
     <div className="announcentsme-panel">
-      <h2 className="section-title">Event Announcements</h2>
+      <h2 className="section-title">Announcements</h2>
 
       {filteredEvents.length === 0 ? (
         <p className="no-announcement">No announcements to show.</p>
@@ -133,8 +133,12 @@ const Announcements = () => {
                   </span>
                 </div>
                 <div className="announcement-meta">
-                  {event.date} at {event.time}
+                  {event.date}
+                  {event.time &&
+                    event.time.toLowerCase() !== "none" &&
+                    ` at ${event.time}`}
                 </div>
+
                 <p className="announcement-description">{event.description}</p>
 
                 {/* {!["GSO Director", "GSO Officer"].includes(userRole) && (

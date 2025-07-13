@@ -51,6 +51,7 @@ function RecordManagement() {
 
   const GSO =
     userInfo.userRole === "GSO Officer" || userInfo.userRole === "GSO Director";
+  var statusOptions = ["All", "Vehicle", "Facility", "Job", "Purchase"];
 
   // Type options for filter bar
   var typeOptions = [
@@ -64,10 +65,11 @@ function RecordManagement() {
 
   if (GSO) {
     typeOptions = ["All", "OnGoing", "Approved", "Completed", "Rejected"];
+  } else if (userInfo.userRole === "Student") {
+    statusOptions = ["All", "Vehicle", "Facility"];
   }
 
   // Status options for dropdown filter
-  const statusOptions = ["All", "Vehicle", "Facility", "Job", "Purchase"];
 
   //fetch record for gso
 
@@ -221,7 +223,9 @@ function RecordManagement() {
         <div className="title-container">
           <div className="d-flex justify-content-between align-items-center">
             <div>
-              <h1 className="title">Record Management</h1>
+              <h1 className="title">
+                {GSO ? "Record Management" : "My Records"}
+              </h1>
               <p className="subtitle">
                 Statuses of request are in this module.
               </p>

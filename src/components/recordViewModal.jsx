@@ -18,7 +18,13 @@ const FormField = ({ label, value }) => (
 );
 
 // Facility Reservation Form Component
-const FacilityReservationForm = ({ request, name, dateNeeded }) => {
+const FacilityReservationForm = ({
+  request,
+  name,
+  dateNeeded,
+  isReject,
+  reason,
+}) => {
   const { dateTimeFormat, dateformat } = formatDate();
   const [formattedDate, setFormattedDate] = useState([]);
   const { usertoken } = useUserContext();
@@ -32,6 +38,12 @@ const FacilityReservationForm = ({ request, name, dateNeeded }) => {
         <FormField label="Nature of Activity: " value={request.activityType} />
         <FormField label="Activity: " value={request.activity} />
         <FormField label="Purpose: " value={request.purpose} />
+        {isReject && reason && (
+          <div className="form-group">
+            <label className="form-label">Reason for Rejection:</label>
+            <textarea className="form-control" value={reason} readOnly />
+          </div>
+        )}
       </div>
       <div className="form-column">
         <FormField
@@ -62,6 +74,8 @@ const VehicleReservationForm = ({
   canEdit,
   dateNeeded,
   setVehicleItem,
+  isReject,
+  reason,
 }) => {
   const [vehiclelist, setVehicleList] = useState([]);
   const { usertoken, userInfo } = useUserContext();
@@ -150,11 +164,12 @@ const VehicleReservationForm = ({
                   onChange={update}
                   required
                 >
-                  <option value="">
-                    {request.gso_service?.vehicle
+                  <option value="" disabled>
+                    {request.gso_service?.vehicleID
                       ? `${request.gso_service.vehicle.brand} : ${request.gso_service.vehicle.plateNo}`
                       : "Select Vehicle"}
                   </option>
+
                   {vehiclelist.map((vehicle) => (
                     <option key={vehicle.vehicleID} value={vehicle.vehicleID}>
                       {`${vehicle.brand} : ${vehicle.plateNo} max seat: ${vehicle.maxSeat}`}
@@ -186,14 +201,21 @@ const VehicleReservationForm = ({
         <FormField label="Date Needed: " value={dateNeeded} />
         <FormField label="No. of Passenger: " value={request.noOfPassenger} />
         <FormField label="Passengers: " value={request.passengerName} />
-
-        <a
-          href={request.file_url}
-          download
-          style={{ color: "darkblue", textShadow: "2px 4px lightblue" }}
-        >
-          {"Travel Order"}
-        </a>
+        {request.file_url && (
+          <a
+            href={request.file_url}
+            download
+            style={{ color: "darkblue", textShadow: "2px 4px lightblue" }}
+          >
+            {"Travel Order"}
+          </a>
+        )}
+        {isReject && reason && (
+          <div className="form-group">
+            <label className="form-label">Reason for Rejection:</label>
+            <textarea className="form-control" value={reason} readOnly />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -207,6 +229,8 @@ const JobRequestForm = ({
   dateNeeded,
   setJobItems,
   jobItems,
+  isReject,
+  reason,
 }) => {
   const { dateformat } = formatDate();
   const [items, setItems] = useState({
@@ -348,6 +372,12 @@ const JobRequestForm = ({
             </tbody>
           </table>
         </div>
+        {isReject && reason && (
+          <div className="form-group">
+            <label className="form-label">Reason for Rejection:</label>
+            <textarea className="form-control" value={reason} readOnly />
+          </div>
+        )}
       </div>
     </>
   );
@@ -361,6 +391,8 @@ const PurchaseRequestForm = ({
   dateNeeded,
   updated,
   setPurchaseItems,
+  isReject,
+  reason,
 }) => {
   // console.log(request.material);
   const { dateformat } = formatDate();
@@ -377,6 +409,7 @@ const PurchaseRequestForm = ({
       )
     );
   };
+
   useEffect(() => {
     setPurchaseItems(items);
   }, [items]);
@@ -471,6 +504,12 @@ const PurchaseRequestForm = ({
           </tbody>
         </table>
       </div>
+      {isReject && reason && (
+        <div className="form-group">
+          <label className="form-label">Reason for Rejection:</label>
+          <textarea className="form-control" value={reason} readOnly />
+        </div>
+      )}
     </>
   );
 };
@@ -496,6 +535,26 @@ const RecordViewModal = ({
   //  console.log(request);
   const myRequest = request && request.user?.userid === userInfo.userid;
 
+  useEffect(() => {
+    if (request) {
+      axios
+        .post(
+          "/api/notification/officer",
+          {
+            reqstCODE: request.reqstCODE,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${usertoken}`,
+            },
+          }
+        )
+        .then((res) => {})
+        .catch((e) => {
+          console.log("error", e);
+        });
+    }
+  }, [request]);
   const forApproval =
     userInfo.userRole === "Faculty Adviser" ||
     userInfo.userRole === "Dean/Head";
@@ -552,6 +611,8 @@ const RecordViewModal = ({
             request={request.service_request}
             _request
             name={name}
+            reason={request.reason || ""}
+            isReject={request.remark === "Reject" ? true : false}
             dateNeeded={request.dateNeeded}
             canEdit={canEdit}
             setVehicleItem={setVehicleItem}
@@ -562,6 +623,8 @@ const RecordViewModal = ({
           <FacilityReservationForm
             request={request.facility_request}
             name={name}
+            reason={request.reason || ""}
+            isReject={request.remark === "Reject" ? true : false}
             dateNeeded={request.dateNeeded}
             canEdit={canEdit}
           />
@@ -573,6 +636,8 @@ const RecordViewModal = ({
             name={name}
             dateNeeded={request.dateNeeded}
             canEdit={canEdit}
+            reason={request.reason || ""}
+            isReject={request.remark === "Reject" ? true : false}
             jobItems={jobItems}
             setJobItems={setJobItems}
           />
@@ -581,6 +646,8 @@ const RecordViewModal = ({
         return (
           <PurchaseRequestForm
             request={request.purchase_request}
+            reason={request.reason || ""}
+            isReject={request.remark === "Reject" ? true : false}
             name={name}
             dateNeeded={request.dateNeeded}
             canEdit={canEdit}
@@ -668,7 +735,7 @@ const RecordViewModal = ({
                 className="rejects-button"
                 onClick={handleOpenRejectionModal}
               >
-                Reject
+                Rejected
               </button>
             </>
           )}
@@ -716,6 +783,7 @@ const RecordViewModal = ({
                   >
                     Cancel
                   </button>
+                  +
                 </div>
               </div>
             </div>
